@@ -57,14 +57,13 @@ public class SATSolver {
 				System.out.println(HornSat.isSatisfiable(sentence));			
 			} else {
 				DPLLSat sat = new DPLLSat();
+				System.out.println("No es 2-SAT ni HORN-SAT");
 				System.out.println(sat.isSatisfiable(new Sentence(sentence)));
 			}	
 		} catch (FileNotFoundException e) {
 			System.out.println("Error: fichero no encontrado");
 			System.exit(1);
 		}
-		
-
 	}
 
 	/**
@@ -73,6 +72,7 @@ public class SATSolver {
 	 */
 	private static ArrayList<Clause> generateSentence(String line) {
 		/* Separa la formula en clausulas */
+		line = line.replace(" ", "");
 		String[] clauses = line.split("\\*");
 		ArrayList<Clause> sentence = new ArrayList<Clause>();
 
@@ -132,7 +132,7 @@ public class SATSolver {
 		System.out.println("Conjuncion: *");
 		System.out.println("Negacion: -");
 		System.out.println("Las variables deben empezar por letra, y pueden contener letras, numeros y _");
-		System.out.println("Las clausulas aparecen separadas con ( )");
+		System.out.println("Las clausulas pueden aparecer separadas con ( )");
 		System.out.println("La formula CNF puede ocupar varias lineas.");
 		System.out.println("Para indicar que ha terminado su formula, escriba end en una linea nueva.");
 		System.out.println();
