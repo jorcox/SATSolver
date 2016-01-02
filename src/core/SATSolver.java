@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import ajeno.DPLLSat;
 import ajeno.TwoSat;
 
 import aima.core.logic.propositional.kb.data.Clause;
