@@ -1,23 +1,15 @@
 package core;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Scanner;
 import java.util.Set;
 
-import aima.core.logic.propositional.parsing.ast.Sentence;
-import aima.core.util.datastructure.Pair;
 import aima.core.logic.propositional.kb.data.Clause;
 import aima.core.logic.propositional.kb.data.Literal;
-import ajeno.TwoSat;
 
 public class HornSat {
 	
-
 	public static boolean isSatisfiable(ArrayList<Clause> sentence) {
-
 		boolean hasSimple = true;
 		while (hasSimple) {
 			/*
@@ -34,7 +26,6 @@ public class HornSat {
 			}
 
 			if (hasSimple) {
-				ArrayList<Pair<Clause,Literal>> toRemoveLit = new ArrayList<Pair<Clause,Literal>>();
 				ArrayList<Clause> toRemoveClause = new ArrayList<Clause>();
 				Literal sim = simpleClause.getLiterals().iterator().next();
 				for (int i = 0; i < sentence.size(); i++) {

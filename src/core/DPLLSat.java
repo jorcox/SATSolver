@@ -6,16 +6,10 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
-import aima.core.logic.propositional.inference.DPLL;
-import aima.core.logic.propositional.kb.KnowledgeBase;
 import aima.core.logic.propositional.kb.data.Clause;
 import aima.core.logic.propositional.kb.data.Literal;
 import aima.core.logic.propositional.kb.data.Model;
-import aima.core.logic.propositional.parsing.ast.ComplexSentence;
-import aima.core.logic.propositional.parsing.ast.Connective;
 import aima.core.logic.propositional.parsing.ast.PropositionSymbol;
-import aima.core.logic.propositional.visitors.ConvertToConjunctionOfClauses;
-import aima.core.logic.propositional.visitors.SymbolCollector;
 import aima.core.util.Util;
 import aima.core.util.datastructure.Pair;
 
