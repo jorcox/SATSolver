@@ -8,7 +8,7 @@ import java.util.Scanner;
 
 import ajeno.DPLLSat;
 import ajeno.TwoSat;
-
+import ajeno.WalkSAT;
 import aima.core.logic.propositional.kb.data.Clause;
 import aima.core.logic.propositional.kb.data.Literal;
 import aima.core.logic.propositional.parsing.ast.PropositionSymbol;
@@ -57,6 +57,7 @@ public class SATSolver {
 				System.out.println(HornSat.isSatisfiable(sentence));			
 			} else {
 				DPLLSat sat = new DPLLSat();
+				//WalkSAT sat = new WalkSAT();
 				System.out.println("No es 2-SAT ni HORN-SAT");
 				System.out.println(sat.isSatisfiable(new Sentence(sentence)));
 			}	
