@@ -1,17 +1,26 @@
 package core;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 import java.util.Scanner;
 
-import ajeno.DPLLSat;
-import ajeno.TwoSat;
-import ajeno.WalkSAT;
 import aima.core.logic.propositional.kb.data.Clause;
 import aima.core.logic.propositional.kb.data.Literal;
 import aima.core.logic.propositional.parsing.ast.PropositionSymbol;
+import algorithms.DPLLSat;
+import algorithms.HornSat;
+import algorithms.TwoSat;
+import algorithms.WalkSAT;
 
 /**
  * 
@@ -28,12 +37,24 @@ public class SATSolver {
 	public static void main(String[] args) {
 		try {
 			ArrayList<Clause> sentence;
-			Scanner input;
-			if (args.length > 0) {
-				/* Si se pasa un fichero, se lee la formula que contiene */
-				File ficheroSAT = new File(args[0]);
-				input = new Scanner(ficheroSAT);				
-			} else {
+			Scanner input = null;
+			String type = "dpll";
+			
+			for (int i=0; i<args.length; i++) {
+				switch (args[i]) {
+				case "-file":
+					/* Si se pasa un fichero, se lee la formula que contiene */
+					File ficheroSAT = new File(args[i+1]);
+					printSentence(ficheroSAT);
+					input = new Scanner(ficheroSAT);
+					break;
+				case "-type":
+					/* Se puede especificar el tipo de algoritmo (dpll o walksat) */
+					type = args[i+1];
+				}
+			}
+			
+			if (input==null) {
 				/* Si no se pasa un fichero, la introduccion es manual */
 				printMenu();
 				input = new Scanner(System.in);
@@ -51,19 +72,66 @@ public class SATSolver {
 			 */
 			if(new Sentence(sentence).checkTwoSat()){			
 				System.out.println("Es 2-SAT");
-				System.out.println(TwoSat.isSatisfiable(sentence));
+				boolean result = TwoSat.isSatisfiable(sentence);
+				printResult(result);
 			} else if (new Sentence(sentence).checkHornSat()){			
 				System.out.println("Es HORN-SAT");
-				System.out.println(HornSat.isSatisfiable(sentence));			
+				boolean result = HornSat.isSatisfiable(sentence);
+				printResult(result);
 			} else {
-				DPLLSat sat = new DPLLSat();
-				//WalkSAT sat = new WalkSAT();
 				System.out.println("No es 2-SAT ni HORN-SAT");
-				System.out.println(sat.isSatisfiable(new Sentence(sentence)));
+				
+				/*
+				 * Lee el fichero de propiedades
+				 */
+				Properties props = new Properties();
+				InputStream file = new FileInputStream("application.properties");
+				props.load(file);
+				
+				/*
+				 * Elige el algoritmo segun lo indicado por parametro
+				 */
+				if (type.equals("dpll")) {
+					System.out.println("Utilizando algoritmo DPLL");
+					
+					DPLLSat sat = new DPLLSat();
+					boolean result = sat.isSatisfiable(new Sentence(sentence));
+					printResult(result);
+				} else if (type.equals("walksat")) {
+					double probRandom = Double.parseDouble(props.getProperty("walksat.probrandom"));
+					int maxSteps = Integer.parseInt(props.getProperty("walksat.maxsteps"));
+					System.out.println("Utilizando WalkSAT con p=" + probRandom + " y maxSteps=" + maxSteps);
+					
+					WalkSAT sat = new WalkSAT(probRandom, maxSteps);
+					boolean result = sat.isSatisfiable(new Sentence(sentence));
+					printResult(result);
+				} else {
+					System.out.println("Error: algoritmo introducido no conocido");
+				}
 			}	
 		} catch (FileNotFoundException e) {
 			System.out.println("Error: fichero no encontrado");
 			System.exit(1);
+		} catch (IOException e) {
+			System.out.println("Error: fichero de propiedades incorrecto");
+			System.exit(2);
+		} catch (NumberFormatException e) {
+			System.out.println("Error: valores incorrectos en fichero de propiedades");
+			System.exit(3);
+		} catch (Exception e) {
+			System.out.println("Error: desconocido");
+			System.exit(4);
+		}
+	}
+
+	/**
+	 * Muestra por pantalla si es satisfacible o no la formula introducida.
+	 */
+	private static void printResult(boolean result) {
+		if (result) {
+			System.out.println("Es satisfacible");
+		} else {
+			System.out.println("No es satisfacible");
 		}
 	}
 
@@ -143,6 +211,21 @@ public class SATSolver {
 		System.out.println("end");
 		System.out.println();
 		System.out.println("Introduzca su formula CNF: ");
+	}
+	
+	/**
+	 * Lee una formula y la presenta por pantalla
+	 */
+	private static void printSentence(File ficheroSAT) throws IOException {
+		System.out.println("Formula introducida:");
+		BufferedReader reader = new BufferedReader(new FileReader(ficheroSAT));
+		
+		String line = reader.readLine();
+		while (line != null) {
+			System.out.println(line);
+			line = reader.readLine();
+		}
+		reader.close();
 	}
 
 }

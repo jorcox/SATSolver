@@ -1,4 +1,4 @@
-package ajeno;
+package algorithms;
 
 /******************************************************************************
  * File: TwoSat.java
@@ -49,6 +49,7 @@ import java.util.*; // For List, Set
 import aima.core.logic.propositional.kb.data.Clause;
 import aima.core.logic.propositional.kb.data.Literal;
 import aima.core.logic.propositional.parsing.ast.PropositionSymbol;
+import core.DirectedGraph;
 
 public final class TwoSat {
 	/**

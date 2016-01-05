@@ -1,10 +1,11 @@
-package ajeno;
+package algorithms;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 import java.util.Random;
 import java.util.Set;
 
@@ -48,10 +49,10 @@ public class WalkSAT {
 	  * Probability of doing a random flip instead of a flip that
 	  * maximizes the number of satisfied clauses.
 	  */
-	 private final double PROB_RANDOM_WALK = 1;
+	 private double probRandomWalk;
 	 
 	 /* If MAX_FLIPS < 0, infinite */
-	 private final int MAX_FLIPS = 1000;
+	 private int maxFlips;
 	
 	/**
 	 * Checks the satisfiability of a sentence in propositional logic.
@@ -62,7 +63,7 @@ public class WalkSAT {
 	 */
 	public boolean isSatisfiable(Sentence s) {
 		Set<Clause> clauses = new LinkedHashSet<Clause>(s.getClauses());
-		Model result = walkSAT(clauses, PROB_RANDOM_WALK, MAX_FLIPS);
+		Model result = walkSAT(clauses, probRandomWalk, maxFlips);
 		return (result != null);
 	}
 	
@@ -89,7 +90,7 @@ public class WalkSAT {
 		for (int i = 0; i < maxFlips || maxFlips < 0; i++) {
 			// if model satisfies clauses then return model
 			if (model.satisfies(clauses)) {
-				System.out.println("Flips made with WalkSAT: " + i);
+				System.out.println("Pasos dados por WalkSAT: " + i);
 				return model;
 			}
 
@@ -108,7 +109,7 @@ public class WalkSAT {
 						clause, clauses, model);
 			}
 		}
-		System.out.println("Flips made with WalkSAT: " + maxFlips);
+		System.out.println("Pasos dados por WalkSAT: " + maxFlips);
 		// return failure
 		return null;
 	}
@@ -121,7 +122,9 @@ public class WalkSAT {
 	/**
 	 * Default Constructor.
 	 */
-	public WalkSAT() {
+	public WalkSAT(double prob, int flips) {
+		probRandomWalk = prob;
+		maxFlips = flips;
 	}
 
 	/**

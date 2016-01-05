@@ -1,4 +1,4 @@
-package ajeno;
+package algorithms;
 
 /******************************************************************************
  * File: Kosaraju.java
@@ -45,6 +45,8 @@ package ajeno;
  * order in which they are visited, we will end up recovering all the SCCs.
  */
 import java.util.*; // For ArrayList, HashSet, HashMap
+
+import core.DirectedGraph;
 
 public final class Kosaraju {
     /**

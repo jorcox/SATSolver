@@ -1,4 +1,4 @@
-package ajeno;
+package core;
 
 /*****************************************************************************
  * File: DirectedGraph.java
