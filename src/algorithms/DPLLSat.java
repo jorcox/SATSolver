@@ -12,7 +12,7 @@ import aima.core.logic.propositional.kb.data.Model;
 import aima.core.logic.propositional.parsing.ast.PropositionSymbol;
 import aima.core.util.Util;
 import aima.core.util.datastructure.Pair;
-import core.Sentence;
+import utils.Sentence;
 
 /**
  * Artificial Intelligence A Modern Approach (3rd Edition): page 261.<br>

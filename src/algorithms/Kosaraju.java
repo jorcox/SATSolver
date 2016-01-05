@@ -46,7 +46,7 @@ package algorithms;
  */
 import java.util.*; // For ArrayList, HashSet, HashMap
 
-import core.DirectedGraph;
+import utils.DirectedGraph;
 
 public final class Kosaraju {
     /**

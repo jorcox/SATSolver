@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Properties;
 import java.util.Random;
 import java.util.Set;
 
@@ -13,7 +12,7 @@ import aima.core.logic.propositional.kb.data.Clause;
 import aima.core.logic.propositional.kb.data.Model;
 import aima.core.logic.propositional.parsing.ast.PropositionSymbol;
 import aima.core.util.SetOps;
-import core.Sentence;
+import utils.Sentence;
 
 /**
  * Artificial Intelligence A Modern Approach (3rd Edition): page 263.<br>
