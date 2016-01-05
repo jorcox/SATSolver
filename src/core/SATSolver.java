@@ -65,6 +65,10 @@ public class SATSolver {
 			String formula = readFormula(input);
 			input.close();
 			sentence = generateSentence(formula);
+			if (sentence == null) {
+				System.out.println("Error: literal introducido incorrectamente.");
+				System.exit(4);
+			}
 				
 			/*
 			 * Comprueba de que problema se trata y lo resuelve
@@ -119,7 +123,7 @@ public class SATSolver {
 			System.exit(3);
 		} catch (Exception e) {
 			System.out.println("Error: desconocido");
-			System.exit(4);
+			System.exit(5);
 		}
 	}
 
@@ -158,8 +162,18 @@ public class SATSolver {
 				literales[j] = literales[j].replace("(", "").replace(")", "");
 				if (literales[j].contains("-")) {
 					literales[j] = literales[j].replace("-", "");
+					if (!literales[j].substring(0,1).matches("[A-Za-z]") ||
+							includes(literales[j], "[^A-Za-z0-9_]")) {
+						/* Comprueba que las variables tengan la sintaxis correcta */
+						return null;
+					}
 					litInClause.add(new Literal(new PropositionSymbol(literales[j]), false));
 				} else {
+					if (!literales[j].substring(0,1).matches("[A-Za-z]") ||
+							includes(literales[j], "[^A-Za-z0-9_]")) {
+						/* Comprueba que las variables tengan la sintaxis correcta */
+						return null;
+					}
 					litInClause.add(new Literal(new PropositionSymbol(literales[j]), true));
 				}
 			}
@@ -225,6 +239,14 @@ public class SATSolver {
 			line = reader.readLine();
 		}
 		reader.close();
+	}
+	
+	/**
+	 * Comprueba si un literal incluye algun caracter que aparece en regex
+	 */
+	private static boolean includes(String lit, String regex) {
+		String aux = lit.replaceAll(regex, "");
+		return lit.length() != aux.length();
 	}
 
 }

@@ -9,6 +9,9 @@ import aima.core.logic.propositional.kb.data.Literal;
 
 public class HornSat {
 	
+	/**
+	 * Comprueba si la sentencia de Horn es satisfacible.
+	 */
 	public static boolean isSatisfiable(ArrayList<Clause> sentence) {
 		boolean hasSimple = true;
 		while (hasSimple) {
@@ -28,10 +31,9 @@ public class HornSat {
 			if (hasSimple) {
 				ArrayList<Clause> toRemoveClause = new ArrayList<Clause>();
 				Literal sim = simpleClause.getLiterals().iterator().next();
+				
 				for (int i = 0; i < sentence.size(); i++) {
-					
 					Clause clausula = sentence.get(i);					
-					
 					Literal litS = getUnitLiteral(clausula, sim);
 					
 				    /*
@@ -39,19 +41,19 @@ public class HornSat {
 					 */
 					if (litS != null && (litS.equals(sim))) {
 						toRemoveClause.add(clausula);
-						//sentence.remove(clausula);
 					}
+					
 					/*
 					 * Caso de insatisfabilidad
 					 */
 					else if (litS != null && (!litS.equals(sim)) && (clausula.getLiterals().size() == 1)) {
 						return false;
 					}
+					
 					/*
 					 * Si existe en esta clausula y tienen distinto valor
 					 */
 					else if (litS != null && (!litS.equals(sim))) {
-						//toRemoveLit.add(new Pair<Clause, Literal>(clausula,new Literal(litS.getAtomicSentence(),sim.isPositiveLiteral())));
 						Set<Literal> oldLits = new LinkedHashSet<Literal>(clausula.getLiterals());
 						Set<Literal> newLits = new LinkedHashSet<Literal>();
 						for (Literal literal : oldLits) {
@@ -60,23 +62,15 @@ public class HornSat {
 								newLits.add(literal);
 							}
 						}
-						//int d = sentence.indexOf(clausula);
 						sentence.remove(clausula);
 						clausula = new Clause(newLits);
 						sentence.add(i, clausula);
-						//clausula.getLiterals().remove(new Literal(litS.getAtomicSentence(),sim.isPositiveLiteral()));
 					}
 				}
 				
 				for (Clause clause : toRemoveClause) {
 					sentence.remove(clause);
 				}
-				
-//				for(Pair<Clause, Literal> par : toRemoveLit){
-//					Clause hola = new Clause(sentence.get(sentence.indexOf(par.getFirst())));
-//					sentence.get(sentence.indexOf(par.getFirst())).getLiterals().remove(par.getSecond());
-//				}
-				
 				
 			}
 		}
