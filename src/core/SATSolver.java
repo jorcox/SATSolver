@@ -40,14 +40,12 @@ public class SATSolver {
 			String type = "dpll";
 			
 			for (int i=0; i<args.length; i++) {
-				switch (args[i]) {
-				case "-file":
+				if (args[i].equals("-file")) {
 					/* Si se pasa un fichero, se lee la formula que contiene */
 					File ficheroSAT = new File(args[i+1]);
 					printSentence(ficheroSAT);
 					input = new Scanner(ficheroSAT);
-					break;
-				case "-type":
+				} else if (args[i].equals("-type")) {
 					/* Se puede especificar el tipo de algoritmo (dpll o walksat) */
 					type = args[i+1];
 				}
