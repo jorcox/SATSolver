@@ -75,12 +75,18 @@ public class SATSolver {
 			 */
 			if(new Sentence(sentence).checkTwoSat()){			
 				System.out.println("Es 2-SAT");
+				long t1 = System.currentTimeMillis();
 				boolean result = TwoSat.isSatisfiable(sentence);
+				long t2 = System.currentTimeMillis();
 				printResult(result);
+				System.out.println("Tiempo empleado: " + (t2-t1) + " ms");
 			} else if (new Sentence(sentence).checkHornSat()){			
 				System.out.println("Es HORN-SAT");
+				long t1 = System.currentTimeMillis();
 				boolean result = HornSat.isSatisfiable(sentence);
+				long t2 = System.currentTimeMillis();
 				printResult(result);
+				System.out.println("Tiempo empleado: " + (t2-t1) + " ms");
 			} else {
 				System.out.println("No es 2-SAT ni HORN-SAT");
 				
@@ -98,16 +104,22 @@ public class SATSolver {
 					System.out.println("Utilizando algoritmo DPLL");
 					
 					DPLLSat sat = new DPLLSat();
+					long t1 = System.currentTimeMillis();
 					boolean result = sat.isSatisfiable(new Sentence(sentence));
+					long t2 = System.currentTimeMillis();
 					printResult(result);
+					System.out.println("Tiempo empleado: " + (t2-t1) + " ms");
 				} else if (type.equals("walksat")) {
 					double probRandom = Double.parseDouble(props.getProperty("walksat.probrandom"));
 					int maxSteps = Integer.parseInt(props.getProperty("walksat.maxsteps"));
 					System.out.println("Utilizando WalkSAT con p=" + probRandom + " y maxSteps=" + maxSteps);
 					
 					WalkSAT sat = new WalkSAT(probRandom, maxSteps);
+					long t1 = System.currentTimeMillis();
 					boolean result = sat.isSatisfiable(new Sentence(sentence));
+					long t2 = System.currentTimeMillis();
 					printResult(result);
+					System.out.println("Tiempo empleado: " + (t2-t1) + " ms");
 				} else {
 					System.out.println("Error: algoritmo introducido no conocido");
 				}
