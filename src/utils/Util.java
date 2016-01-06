@@ -4,11 +4,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Hashtable;
 import java.util.LinkedHashMap;
-import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
-import java.util.Set;
 
 /**
  * @author Ravi Mohan
@@ -61,23 +59,6 @@ public class Util {
 		}
 
 		return map;
-	}
-	
-	/**
-	 * Create a set for the provided values.
-	 * @param values
-	 *        the sets initial values.
-	 * @return a Set of the provided values.
-	 */
-	@SafeVarargs
-	public static <V> Set<V> createSet(V... values) {
-		Set<V> set = new LinkedHashSet<V>();
-		
-		for (V v : values) {
-			set.add(v);
-		}
-		
-		return set;
 	}
 
 	/**
