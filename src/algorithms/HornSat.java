@@ -4,8 +4,7 @@ import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-import aima.core.logic.propositional.kb.data.Clause;
-import aima.core.logic.propositional.kb.data.Literal;
+import utils.*;
 
 public class HornSat {
 	

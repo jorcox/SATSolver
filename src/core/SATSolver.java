@@ -12,14 +12,8 @@ import java.util.List;
 import java.util.Properties;
 import java.util.Scanner;
 
-import aima.core.logic.propositional.kb.data.Clause;
-import aima.core.logic.propositional.kb.data.Literal;
-import aima.core.logic.propositional.parsing.ast.PropositionSymbol;
-import algorithms.DPLLSat;
-import algorithms.HornSat;
-import algorithms.TwoSat;
-import algorithms.WalkSAT;
-import utils.Sentence;
+import algorithms.*;
+import utils.*;
 
 /**
  * 

@@ -8,11 +8,7 @@ import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 
-import aima.core.logic.propositional.kb.data.Clause;
-import aima.core.logic.propositional.kb.data.Model;
-import aima.core.logic.propositional.parsing.ast.PropositionSymbol;
-import aima.core.util.SetOps;
-import utils.Sentence;
+import utils.*;
 
 /**
  * Artificial Intelligence A Modern Approach (3rd Edition): page 263.<br>

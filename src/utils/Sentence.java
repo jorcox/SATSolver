@@ -2,10 +2,6 @@ package utils;
 
 import java.util.ArrayList;
 
-import aima.core.logic.propositional.kb.data.Clause;
-import aima.core.logic.propositional.kb.data.Literal;
-import aima.core.logic.propositional.parsing.ast.PropositionSymbol;
-
 public class Sentence {
 	
 	private ArrayList<Clause> clauses;

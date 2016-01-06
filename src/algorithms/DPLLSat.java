@@ -6,13 +6,7 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
-import aima.core.logic.propositional.kb.data.Clause;
-import aima.core.logic.propositional.kb.data.Literal;
-import aima.core.logic.propositional.kb.data.Model;
-import aima.core.logic.propositional.parsing.ast.PropositionSymbol;
-import aima.core.util.Util;
-import aima.core.util.datastructure.Pair;
-import utils.Sentence;
+import utils.*;
 
 /**
  * Artificial Intelligence A Modern Approach (3rd Edition): page 261.<br>
@@ -161,7 +155,7 @@ public class DPLLSat {
 
 	// Note: Override this method if you wish to change the initial variable
 	// ordering when dpllSatisfiable is called.
-	protected List<PropositionSymbol> getPropositionSymbolsInSentence(Sentence s) {
+	protected ArrayList<PropositionSymbol> getPropositionSymbolsInSentence(Sentence s) {
 		return s.getUniqueSymbols();
 	}
 

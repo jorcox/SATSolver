@@ -46,10 +46,7 @@ package algorithms;
  */
 import java.util.*; // For List, Set
 
-import aima.core.logic.propositional.kb.data.Clause;
-import aima.core.logic.propositional.kb.data.Literal;
-import aima.core.logic.propositional.parsing.ast.PropositionSymbol;
-import utils.DirectedGraph;
+import utils.*;
 
 public final class TwoSat {
 	/**
@@ -60,7 +57,7 @@ public final class TwoSat {
 	 *            The input 2-CNF formula.
 	 * @return Whether the formula has a satisfying assignment.
 	 */
-	public static <T> boolean isSatisfiable(List<Clause> formula) {
+	public static <T> boolean isSatisfiable(ArrayList<Clause> formula) {
 		/* Begin by populating a set of all the variables in this formula. */
 		Set<String> variables = new HashSet<String>();
 		for (Clause clause : formula) {
