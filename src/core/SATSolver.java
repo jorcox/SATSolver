@@ -32,6 +32,10 @@ public class SATSolver {
 			ArrayList<Clause> sentence;
 			Scanner input = null;
 			String type = "dpll";
+			boolean test = false;
+			String typeTest = "2-SAT";
+			int lit = 0;
+			int claus = 0;
 			
 			for (int i=0; i<args.length; i++) {
 				if (args[i].equals("-file")) {
@@ -42,25 +46,46 @@ public class SATSolver {
 				} else if (args[i].equals("-type")) {
 					/* Se puede especificar el tipo de algoritmo (dpll o walksat) */
 					type = args[i+1];
+				} else if (args[i].equals("-test")) {
+					/* Modo en el que se ejecuta una prueba aleatoria */
+					test = true;
+					typeTest = args[i+1];
+					if (typeTest.equals("dpll") || typeTest.equals("walksat")) {
+						type = typeTest;
+					}
+					lit = Integer.parseInt(args[i+2]);
+					claus = Integer.parseInt(args[i+3]);
 				}
 			}
 			
-			if (input==null) {
+			if (!test && input==null) {
 				/* Si no se pasa un fichero, la introduccion es manual */
 				printMenu();
 				input = new Scanner(System.in);
 			}
 			
-			/*
-			 * Lee la formula y la procesa para el programa
-			 */
-			String formula = readFormula(input);
-			input.close();
-			sentence = generateSentence(formula);
-			if (sentence == null) {
-				System.out.println("Error: literal introducido incorrectamente.");
-				System.exit(4);
-			}
+			if (test) {
+				/* Genera una sentencia aleatoria de prueba */
+				String formula = Test.generate(typeTest, lit, claus);
+				sentence = generateSentence(formula);
+				if (formula == null || sentence == null) {
+					System.out.println("Error: test indicado incorrectamente.");
+					System.exit(5);
+				}
+				System.out.println("Generada formula aleatoria de " + claus + " clausulas " +
+						"y hasta " + lit + " literales distintos.");
+			} else {
+				/*
+				 * Lee la formula y la procesa para el programa
+				 */
+				String formula = readFormula(input);
+				input.close();
+				sentence = generateSentence(formula);
+				if (sentence == null) {
+					System.out.println("Error: literal introducido incorrectamente.");
+					System.exit(4);
+				}
+			}	
 				
 			/*
 			 * Comprueba de que problema se trata y lo resuelve
@@ -127,7 +152,7 @@ public class SATSolver {
 			System.exit(3);
 		} catch (Exception e) {
 			System.out.println("Error: desconocido");
-			System.exit(5);
+			System.exit(6);
 		}
 	}
 
